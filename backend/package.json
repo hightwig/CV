@@ -35,8 +35,11 @@
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "husky": "^6.0.0",
+    "nodemon": "^2.0.9",
     "prettier": "^2.3.1",
-    "pretty-quick": "^3.1.1"
-  },
-  "dependencies": {}
+    "pretty-quick": "^3.1.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5"
+    
+  }
 }

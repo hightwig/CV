@@ -1,13 +1,14 @@
-import { signIn, signUp } from '../controller/userController';
+import { UserController } from '../controller/userController';
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserRole } from '../Model/userModel';
 
 const router = Router();
+const userController = new UserController();
 
 router.post(
   '/signUp',
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = await signUp({
+    const user = await userController.signUp({
       email: req.body.email,
       name: req.body.name,
       username: req.body.username,
@@ -34,7 +35,10 @@ router.post(
 router.post(
   '/signIn',
   async (req: Request, res: Response, next: NextFunction) => {
-    const user = await signIn(req.body.username, req.body.password);
+    const user = await userController.signIn(
+      req.body.username,
+      req.body.password
+    );
 
     if (user)
       res.status(200).json({

@@ -7,15 +7,24 @@ export interface Advertise {
   skills: string[];
   salary: number;
   condition: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export const AdvertiseSchema = new Schema<Advertise>({
-  employeeSeeker: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  skills: { type: [String], required: true },
-  salary: { type: Number, required: true },
-  condition: { type: String, required: true }
-});
+export const AdvertiseSchema = new Schema<Advertise>(
+  {
+    employeeSeeker: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    skills: { type: [String], required: true },
+    salary: { type: Number, required: true },
+    condition: { type: String, required: true }
+  },
+  { timestamps: true }
+);
 
 export const AdvertiseModel = model<Advertise>('Advertise', AdvertiseSchema);

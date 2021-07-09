@@ -20,16 +20,19 @@ router.post(
           : UserRole.JobSeeker
     });
 
-    res.status(201).json({
-      statusCode: 201,
-      data: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        username: user.username,
-        role: user.role
-      }
-    });
+    res
+      .status(201)
+      .cookie('userId', user.id, { maxAge: 7_776_000_000 })
+      .json({
+        statusCode: 201,
+        data: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          username: user.username,
+          role: user.role
+        }
+      });
   })
 );
 
@@ -40,6 +43,33 @@ router.post(
       req.body.username,
       req.body.password
     );
+
+    if (user)
+      res
+        .status(200)
+        .cookie('userId', user.id, { maxAge: 7_776_000_000 })
+        .json({
+          statusCode: 200,
+          data: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            username: user.username,
+            role: user.role
+          }
+        });
+    else
+      res.status(401).json({
+        statusCode: 401,
+        message: 'Invalid username or password!'
+      });
+  })
+);
+
+router.get(
+  '/user',
+  ae(async (req: Request, res: Response, next: NextFunction) => {
+    const user = await userController.getUser(req.cookies.userId);
 
     if (user)
       res.status(200).json({
@@ -55,7 +85,7 @@ router.post(
     else
       res.status(401).json({
         statusCode: 401,
-        message: 'Invalid username or password!'
+        message: 'Invalid userId!'
       });
   })
 );

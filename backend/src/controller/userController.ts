@@ -8,4 +8,8 @@ export class UserController {
   async signIn(username: string, password: string) {
     return await UserModel.findOne({ username, password });
   }
+
+  async getUser(userId: string) {
+    return await UserModel.findById(userId);
+  }
 }

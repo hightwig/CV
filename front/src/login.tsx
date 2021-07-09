@@ -1,4 +1,3 @@
-import React, { useCallback } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +12,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import toastError from "./utils";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -48,10 +52,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  let history = useHistory();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data: any, e: any) => {
+    e.preventDefault();
+    console.log(data);
+    axios
+      .post(`signIn`, data)
+      .then((res) => {
+        if (res.data.statusCode) {
+          if (res.data.statusCode !== 200) {
+            toastError("مشکلی پیش امده لطفا دوباره امتحان کنید");
+          } else {
+            history.push("/home");
+          }
+        }
+      })
+      .catch(() => {
+        toastError("مشکلی پیش امده لطفا دوباره امتحان کنید");
+      });
+  };
   const classes = useStyles();
-  const onclick = useCallback((event) => {
-    event.preventDefault();
-  }, []);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -62,19 +84,24 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form onClick={onclick} className={classes.form} noValidate>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={classes.form}
+          noValidate
+        >
           <TextField
+            {...register("username")}
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="username"
+            name="username"
             autoFocus
           />
           <TextField
+            {...register("password")}
             variant="outlined"
             margin="normal"
             required
@@ -111,6 +138,7 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </form>
+        <ToastContainer />
       </div>
       <Box mt={8}>
         <Copyright />

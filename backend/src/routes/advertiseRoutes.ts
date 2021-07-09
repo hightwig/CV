@@ -15,7 +15,7 @@ router.post(
     res.status(200).json({
       statusCode: 200,
       data: ads.map(ad => ({
-        id: ad.id,
+        id: ad._id,
         condition: ad.condition,
         description: ad.description,
         employeeSeeker: ad.employeeSeeker,

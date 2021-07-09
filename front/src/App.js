@@ -1,7 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import React, { useEffect } from "react";
 
 function App() {
+  const [state, setstate] = React.useState();
+  useEffect(() => {
+    if (state === "222") {
+    }
+  }, [state]);
   return (
     <div className="App">
       <header className="App-header">

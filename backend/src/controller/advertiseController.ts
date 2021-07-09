@@ -10,4 +10,8 @@ export class AdvertiseController {
       returnOriginal: false
     });
   }
+
+  async removeAdvertise(id: string) {
+    return await AdvertiseModel.findByIdAndDelete(id);
+  }
 }

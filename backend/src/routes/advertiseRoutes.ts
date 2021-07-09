@@ -63,4 +63,15 @@ router.patch(
   }
 );
 
+router.delete(
+  '/deleteAdvertise/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    await advertiseController.removeAdvertise(req.params.id);
+
+    res.status(202).json({
+      statusCode: 202
+    });
+  }
+);
+
 export const advertiseRouter = router;

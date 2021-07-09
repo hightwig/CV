@@ -27,7 +27,9 @@ router.post(
         employeeSeeker: advertise.employeeSeeker,
         salary: advertise.salary,
         skills: advertise.skills,
-        title: advertise.title
+        title: advertise.title,
+        createdAt: advertise.createdAt,
+        updatedAt: advertise.updatedAt
       }
     });
   }
@@ -57,7 +59,9 @@ router.patch(
         employeeSeeker: advertise.employeeSeeker,
         salary: advertise.salary,
         skills: advertise.skills,
-        title: advertise.title
+        title: advertise.title,
+        createdAt: advertise.createdAt,
+        updatedAt: advertise.updatedAt
       }
     });
   }

@@ -11,18 +11,21 @@ mongoose.set('toJSON', {
 });
 
 mongoose
-  .connect('mongodb+srv://app:sep2021@sep2021npms.ov3qh.mongodb.net/CVDatabase', {
-    useNewUrlParser: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-    autoIndex: true,
-    useUnifiedTopology: true,
-    keepAlive: true
-  })
+  .connect(
+    'mongodb+srv://app:sep2021@sep2021npms.ov3qh.mongodb.net/CVDatabase',
+    {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+      autoIndex: true,
+      useUnifiedTopology: true,
+      keepAlive: true
+    }
+  )
   .then(() => console.log('connect to DB successfully :)'));
 
-mongoose.connection.on('error', err => {
-  console.log("DBERROR");
+mongoose.connection.on('error', () => {
+  console.log('DBERROR');
 });
 
 mongoose.connection.on('disconnected', () => {

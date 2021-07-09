@@ -25,9 +25,11 @@ module.exports = {
     'no-plusplus': 'off',
     'consistent-return': 'off',
     'no-console': 'off',
-    'no-unused-vars': ['error', { argsIgnorePattern: 'req|res|next' }],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ["error", { argsIgnorePattern: "req|res|next" }],
     'object-shorthand': 'off',
-    'no-underscore-dangle': ['error', { allow: ['_id', '__v'] }]
+    'no-underscore-dangle': ['error', { allow: ['_id', '__v'] }],
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   },
   extends: ["plugin:@typescript-eslint/recommended"]
 };

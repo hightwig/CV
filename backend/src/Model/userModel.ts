@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose';
 
 export enum UserRole {
-    JobSeeker = 'JobSeeker',
-    EmployeeSeeker = 'EmployeeSeeker',
-    Admin = 'Admin'
+  JobSeeker = 'JobSeeker',
+  EmployeeSeeker = 'EmployeeSeeker',
+  Admin = 'Admin'
 }
 
 export interface User {

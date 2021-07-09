@@ -1,5 +1,5 @@
-import { User, UserModel } from "../Model/userModel";
+import { User, UserModel } from '../Model/userModel';
 
 export const signUp = async (user: User) => {
-    return await UserModel.create(user);
-}
+  return await UserModel.create(user);
+};

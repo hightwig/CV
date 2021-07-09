@@ -1,13 +1,14 @@
 import { UserController } from '../controller/userController';
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserRole } from '../Model/userModel';
+import { ae } from '../../utility/ae';
 
 const router = Router();
 const userController = new UserController();
 
 router.post(
   '/signUp',
-  async (req: Request, res: Response, next: NextFunction) => {
+  ae(async (req: Request, res: Response, next: NextFunction) => {
     const user = await userController.signUp({
       email: req.body.email,
       name: req.body.name,
@@ -29,12 +30,12 @@ router.post(
         role: user.role
       }
     });
-  }
+  })
 );
 
 router.post(
   '/signIn',
-  async (req: Request, res: Response, next: NextFunction) => {
+  ae(async (req: Request, res: Response, next: NextFunction) => {
     const user = await userController.signIn(
       req.body.username,
       req.body.password
@@ -56,7 +57,7 @@ router.post(
         statusCode: 401,
         message: 'Invalid username or password!'
       });
-  }
+  })
 );
 
 export const userRouter = router;

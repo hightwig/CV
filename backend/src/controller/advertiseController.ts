@@ -14,4 +14,12 @@ export class AdvertiseController {
   async removeAdvertise(id: string) {
     return await AdvertiseModel.findByIdAndDelete(id);
   }
+
+  async searchAdvertise(skills: string[]) {
+    return await AdvertiseModel.aggregate()
+      .match({
+        skills: new RegExp(`(${skills.join('|')})`)
+      })
+      .sort({ createdAt: -1 });
+  }
 }

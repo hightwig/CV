@@ -7,6 +7,28 @@ const router = Router();
 const advertiseController = new AdvertiseController();
 
 router.post(
+  '/searchAdvertise',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const ads = await advertiseController.searchAdvertise(req.body.skills);
+
+    res.status(200).json({
+      statusCode: 200,
+      data: ads.map(ad => ({
+        id: ad.id,
+        condition: ad.condition,
+        description: ad.description,
+        employeeSeeker: ad.employeeSeeker,
+        salary: ad.salary,
+        skills: ad.skills,
+        title: ad.title,
+        createdAt: ad.createdAt,
+        updatedAt: ad.updatedAt
+      }))
+    });
+  }
+);
+
+router.post(
   '/addAdvertise',
   async (req: Request, res: Response, next: NextFunction) => {
     const advertise = await advertiseController.addAdvertise({

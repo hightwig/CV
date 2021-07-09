@@ -1,4 +1,4 @@
-import { signUp } from '../controller/userController';
+import { signIn, signUp } from '../controller/userController';
 import { NextFunction, Request, Response, Router } from 'express';
 import { UserRole } from '../Model/userModel';
 
@@ -28,6 +28,30 @@ router.post(
         role: user.role
       }
     });
+  }
+);
+
+router.post(
+  '/signIn',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const user = await signIn(req.body.username, req.body.password);
+
+    if (user)
+      res.status(200).json({
+        statusCode: 200,
+        data: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          username: user.username,
+          role: user.role
+        }
+      });
+    else
+      res.status(401).json({
+        statusCode: 401,
+        message: 'Invalid username or password!'
+      });
   }
 );
 

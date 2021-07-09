@@ -1,6 +1,7 @@
 module.exports = {
+  parser: "@typescript-eslint/parser",
   extends: ['airbnb-base', 'plugin:prettier/recommended'],
-  plugins: ['prettier'],
+  plugins: ['prettier', '@typescript-eslint'],
   root: true,
   env: {
     node: true,
@@ -27,5 +28,6 @@ module.exports = {
     'no-unused-vars': ['error', { argsIgnorePattern: 'req|res|next' }],
     'object-shorthand': 'off',
     'no-underscore-dangle': ['error', { allow: ['_id', '__v'] }]
-  }
+  },
+  extends: ["plugin:@typescript-eslint/recommended"]
 };

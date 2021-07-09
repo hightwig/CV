@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json({ limit: '10kb' }));
 
 app.use(userRouter);
-app.use(advertiseRouter);
+app.use('/advertise', advertiseRouter);
 
 app.use(errorHandler);
 

@@ -8,7 +8,7 @@ const router = Router();
 const advertiseController = new AdvertiseController();
 
 router.post(
-  '/searchAdvertise',
+  '/search',
   ae(async (req: Request, res: Response, next: NextFunction) => {
     const ads = await advertiseController.searchAdvertise(req.body.skills);
 
@@ -30,7 +30,7 @@ router.post(
 );
 
 router.post(
-  '/addAdvertise',
+  '/',
   ae(async (req: Request, res: Response, next: NextFunction) => {
     const advertise = await advertiseController.addAdvertise({
       condition: req.body.condition,
@@ -59,7 +59,7 @@ router.post(
 );
 
 router.patch(
-  '/updateAdvertise/:id',
+  '/:id',
   ae(async (req: Request, res: Response, next: NextFunction) => {
     const newAdvertise: Partial<Advertise> = {};
     if (req.body.condition) newAdvertise.condition = req.body.condition;
@@ -91,7 +91,7 @@ router.patch(
 );
 
 router.delete(
-  '/deleteAdvertise/:id',
+  '/:id',
   ae(async (req: Request, res: Response, next: NextFunction) => {
     await advertiseController.removeAdvertise(req.params.id);
 

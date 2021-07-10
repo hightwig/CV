@@ -14,17 +14,19 @@ export default function AdsTable() {
       .post("/advertise/search", { skills: [] })
       .then((res) => {
         console.log(res.data.data);
-        res.data.data.map(
+        rows = res.data.data.map(
           (ad: {
+            id: any;
             title: any;
             salary: any;
             description: any;
             skills: any[];
           }) => ({
+            id: ad.id,
             title: ad.title,
             salary: ad.salary,
             description: ad.description,
-            skill: ad.skills.join(", "),
+            skills: ad.skills.join(", "),
           })
         );
 
@@ -37,6 +39,28 @@ export default function AdsTable() {
       <code>editRowsModel: {JSON.stringify(editRowsModel)}</code>
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
+          onEditCellChangeCommitted={(params) => {
+            let feild = `${params.field}`;
+            let value: any;
+            if (
+              params.field === "skills" &&
+              params.props.value !== undefined &&
+              params.props.value !== null
+            ) {
+              value = params.props.value.toString().split(", ");
+            } else value = params.props.value;
+
+            axios
+              .patch(`advertise/${params.id}`, { [feild]: value })
+              .then(() => {
+                setRefresh("0");
+              })
+              .catch(() => {
+                setRefresh("0");
+              });
+            console.log(params.id);
+            console.log(params.props.value);
+          }}
           rows={rows}
           columns={columns}
           editRowsModel={editRowsModel}

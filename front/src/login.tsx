@@ -56,7 +56,6 @@ export default function SignIn() {
   const { register, handleSubmit } = useForm();
   const onSubmit = (data: any, e: any) => {
     e.preventDefault();
-    console.log(data);
     axios
       .post(`signIn`, data)
       .then((res) => {

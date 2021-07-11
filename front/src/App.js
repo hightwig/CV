@@ -9,7 +9,6 @@ export default function App() {
     <Router>
       <div>
         <Switch>
-          <Route path="/about"></Route>
           <Route path="/home">
             <ButtonAppBar></ButtonAppBar>
           </Route>

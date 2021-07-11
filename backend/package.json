@@ -4,8 +4,8 @@
   "description": "software engineering project",
   "main": "server.js",
   "scripts": {
-    "start": "NODE_ENV=production ts-node src",
-    "start:dev": "NODE_ENV=development nodemon",
+    "start": "ts-node src",
+    "start:dev": "nodemon",
     "format": "prettier --write",
     "lint": "eslint --max-warnings=0 --fix",
     "lint:staged": "lint-staged"

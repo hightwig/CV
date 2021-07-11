@@ -36,7 +36,6 @@ export default function AdsTable() {
   }, [refresh]);
   return (
     <div style={{ width: "100%" }}>
-      <code>editRowsModel: {JSON.stringify(editRowsModel)}</code>
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
           onEditCellChangeCommitted={(params) => {

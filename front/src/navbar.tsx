@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import JobSeekersTable from "./jobSeeker";
 import AdsTable from "./advertise";
+import axios from "axios";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -23,6 +25,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function ButtonAppBar() {
+  let history = useHistory();
+  //React.useEffect(() => {}, []);
+  /*axios
+    .get("user")
+    .then((res) => {
+      console.log(res.data.statusCode);
+      if (res.data.statusCode !== 200) {
+        //history.push("/");
+      }
+    })
+    .catch(() => {
+      history.push("/");
+    });*/
   const classes = useStyles();
   const [navBarState, setNavBarState] = React.useState<string>();
   return (

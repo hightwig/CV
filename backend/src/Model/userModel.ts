@@ -12,6 +12,7 @@ export interface User {
   username: string;
   password: string;
   role: UserRole;
+  skills?: string;
 }
 
 export const userSchema = new Schema<User>({
@@ -19,7 +20,8 @@ export const userSchema = new Schema<User>({
   email: { type: String, required: true },
   username: { type: String, required: true },
   password: { type: String, required: true },
-  role: { type: String, required: true }
+  role: { type: String, required: true },
+  skills: { type: [String] }
 });
 
 export const UserModel = model<User>('User', userSchema);

@@ -12,4 +12,10 @@ export class UserController {
   async getUser(userId: string) {
     return await UserModel.findById(userId);
   }
+
+  async search(skills: string[]) {
+    return await UserModel.aggregate().match({
+      skills: new RegExp(`(${skills.join('|')})`)
+    });
+  }
 }

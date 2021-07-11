@@ -1,6 +1,6 @@
 import { UserController } from '../controller/userController';
 import { NextFunction, Request, Response, Router } from 'express';
-import { UserRole } from '../Model/userModel';
+import { User, UserRole } from '../Model/userModel';
 import { ae } from '../../utility/ae';
 
 const router = Router();
@@ -9,7 +9,7 @@ const userController = new UserController();
 router.post(
   '/signUp',
   ae(async (req: Request, res: Response, next: NextFunction) => {
-    const user = await userController.signUp({
+    const userData: User = {
       email: req.body.email,
       name: req.body.name,
       username: req.body.username,
@@ -18,7 +18,11 @@ router.post(
         req.body.role === UserRole.EmployeeSeeker
           ? UserRole.EmployeeSeeker
           : UserRole.JobSeeker
-    });
+    };
+
+    if (userData.role === UserRole.JobSeeker) userData.skills = req.body.skills;
+
+    const user = await userController.signUp(userData);
 
     res
       .status(201)
@@ -30,7 +34,8 @@ router.post(
           email: user.email,
           name: user.name,
           username: user.username,
-          role: user.role
+          role: user.role,
+          skills: user.role === UserRole.JobSeeker ? user.skills : undefined
         }
       });
   })
@@ -55,7 +60,8 @@ router.post(
             email: user.email,
             name: user.name,
             username: user.username,
-            role: user.role
+            role: user.role,
+            skills: user.role === UserRole.JobSeeker ? user.skills : undefined
           }
         });
     else
@@ -79,7 +85,8 @@ router.get(
           email: user.email,
           name: user.name,
           username: user.username,
-          role: user.role
+          role: user.role,
+          skills: user.role === UserRole.JobSeeker ? user.skills : undefined
         }
       });
     else
@@ -87,6 +94,24 @@ router.get(
         statusCode: 401,
         message: 'Invalid userId!'
       });
+  })
+);
+
+router.post(
+  '/search',
+  ae(async (req: Request, res: Response, next: NextFunction) => {
+    const users = await userController.search(req.body.skills);
+
+    res.status(200).json({
+      statusCode: 200,
+      data: users.map(user => ({
+        id: user._id,
+        email: user.email,
+        name: user.name,
+        username: user.username,
+        skills: user.role === UserRole.JobSeeker ? user.skills : undefined
+      }))
+    });
   })
 );
 

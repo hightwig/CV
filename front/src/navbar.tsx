@@ -10,6 +10,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import JobSeekersTable from "./jobSeeker";
 import AdsTable from "./advertise";
 import axios from "axios";
+import StickyFooter from "./footer";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -70,6 +71,7 @@ export default function ButtonAppBar() {
       ) : (
         <AdsTable></AdsTable>
       )}
+      <StickyFooter></StickyFooter>
     </div>
   );
 }

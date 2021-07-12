@@ -68,7 +68,7 @@ export default function SignIn() {
         }
       })
       .catch(() => {
-        toastError("مشکلی پیش امده لطفا دوباره امتحان کنید");
+        toastError("نام کاربری یا رمز عبور اشتباه است!!");
       });
   };
   const classes = useStyles();
@@ -137,7 +137,17 @@ export default function SignIn() {
             </Grid>
           </Grid>
         </form>
-        <ToastContainer />
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
       <Box mt={8}>
         <Copyright />
